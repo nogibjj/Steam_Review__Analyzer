@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Plot</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <div id="myDiv"></div>
+
+    <script>
+        window.onload = function() {
+            {% if graphJSON %}
+            var figure = {{ graphJSON | tojson | safe }};
+            Plotly.newPlot('myDiv', figure.data, figure.layout);
+            {% endif %}
+        };
+        </script>
+</body>
+</html>

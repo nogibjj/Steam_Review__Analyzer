@@ -1,0 +1,16 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<h1>Hugging Face Sentiment Analyzer</h1>
+<p>This section will allow you to enter a review and the model will return the sentiment of that review</p>
+<p>Please enter your review below</p>
+
+<form method="POST">
+    <input type="text" name="user_input">
+    <input type="submit" value="Submit">
+</form>
+
+{% if sentiment %}
+<p>Sentiment: {{ sentiment }}</p>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,7 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<h1>The results for {{game}} are shown below<h1>
+<p>Here we have a plot for how many times users up voted a review vs what Steam's weighted score for that review is</p>
+<img src="data:image/png;base64,{{ plot }}">
+{% endblock %}
