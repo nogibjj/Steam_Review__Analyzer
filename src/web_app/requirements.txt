@@ -10,3 +10,7 @@ flask == 3.0.0
 tensorflow == 2.15.0
 seaborn == 0.13.0
 transformers == 4.35.2
+locust == 2.19.1
+databricks-sql-connector==2.9.3
+nltk == 3.8.1
+wordcloud == 1.9.2
