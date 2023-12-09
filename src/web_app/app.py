@@ -548,8 +548,8 @@ def home():
         final_query = f"""
         SELECT * FROM default.final_steam_table 
         WHERE game_name = "{user_selection}" 
-        AND timestamp_updated > "{user_start_date}" 
-        AND timestamp_updated < "{user_end_date}"
+        AND timestamp_created > "{user_start_date}" 
+        AND timestamp_created < "{user_end_date}"
         """
 
         # Read in the csv file
