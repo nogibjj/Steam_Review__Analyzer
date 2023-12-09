@@ -10,9 +10,8 @@ pyspark == 3.5.0
 matplotlib == 3.7.3
 flask == 3.0.0
 matplotlib == 3.7.3
-tensorflow == 2.15.0
+tensorflow == 2.13.1
 transformers == 4.35.2
 pyarrow == 14.0.1
 fastparquet == 2023.10.1
 urllib3 == 1.26.18
-```
