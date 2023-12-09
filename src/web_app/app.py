@@ -17,6 +17,7 @@ from plotly.subplots import make_subplots
 from azure_sql_connect import get_dataframe
 import plotly.tools as tls
 import matplotlib.pyplot as plt
+from datetime import datetime
 
 nltk.download("stopwords")
 nltk.download("punkt")
@@ -451,11 +452,25 @@ def clustering_trigrams_graphs(df):
 app = Flask(__name__)
 
 
+import pandas as pd
+import plotly.graph_objs as go
+from datetime import datetime
+
 def create_plot(df, grouping_selection, start_date, end_date):
     fig = go.Figure()
-    # convert 'timestamp_created' to integer
 
-    df["date_time"] = df["timestamp_created"]
+    # Check if 'timestamp_created' is already a datetime object
+    if not pd.api.types.is_datetime64_any_dtype(df['timestamp_created']):
+        df['timestamp_created'] = pd.to_datetime(df['timestamp_created'])
+
+    # Create 'date_time' column
+    df["date_time"] = df['timestamp_created'].dt.strftime('%m/%d/%y')
+    df['date_time'] = pd.to_datetime(df['date_time'], format='%m/%d/%y')
+
+    # Filter based on date range
+    mask = (df['date_time'] >= pd.to_datetime(start_date, format='%Y-%m-%d')) & \
+           (df['date_time'] <= pd.to_datetime(end_date, format='%Y-%m-%d'))  # Corrected the format for 'end_date'
+    df = df.loc[mask]
 
     if grouping_selection == "Month":
         df["year_month"] = df["date_time"].dt.to_period('M')
@@ -523,6 +538,7 @@ def create_plot(df, grouping_selection, start_date, end_date):
             barmode="relative",
         )
     return fig
+
 
 def plot_playtime_histogram(game_df,game_name, column_name):
     """
@@ -600,9 +616,9 @@ def home():
         """
 
         # Read in the csv file
-        #data = pd.read_parquet("../data/No_Man's_Sky_clean.parquet")
+        data = pd.read_parquet("../data/No_Man's_Sky_clean.parquet")
 
-        data = get_dataframe(final_query)
+        #data = get_dataframe(final_query)
 
         # Filter the data based on the user's selection
         # df = data[data['game'] == user_selection]
@@ -615,7 +631,7 @@ def home():
         plot4 = plots[2]
         #plt5 = plot_playtime_histogram(data,user_selection, "author_playtime_forever")
         #plt6 = plot_playtime_histogram(data,user_selection, "author_playtime_last_two_weeks")
-        plt7 = plot_playtime_histogram(data,user_selection, "playtime_at_review")
+        plt7 = plot_playtime_histogram(data,user_selection, "author_playtime_at_review")
 
         print(plot4)
         plot_html = pio.to_html(plot, full_html=False, include_plotlyjs="cdn")
