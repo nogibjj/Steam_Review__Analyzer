@@ -1,3 +1,5 @@
+[![Lint Format Test Install](https://github.com/nogibjj/Steam_Review__Analyzer/actions/workflows/CICD.yaml/badge.svg)](https://github.com/nogibjj/Steam_Review__Analyzer/actions/workflows/CICD.yaml)
+![Alt text](images/Animation.gif)
 # Steam Review Analytics Dashboard
 
 ## A dashboard created using DevOps principles to provide various insights based off of reviews left on gaming market place Steam, and some of its biggest games
@@ -6,7 +8,7 @@
 
 The following in a comprehensive report that will explain the full Data Engineering project, including its functionality, its limitations, and the tools used. 
 
-### Quick Overview
+### Project Overview
 
 This analytics Dashboard was created to be able to derive insights from the reviews left under certain large games in the Steam marketplace. Steam is an open-source gaming marketplace that provides the feature for users to leave positive and negative reviews under the various games. These reviews are presented as JSON files when utilizing Steam's API, which will provide the review, and other accompanying data for it.
 
@@ -26,30 +28,25 @@ The games chosen were due to both their size and their diversity. The goal was t
 
 ### The ETL Pipeline
 
-The data for this entire project is first derived **SOMEONE WHO DID THE SCRAPING, ENTER THIS HERE**
-
-From here, the team created an ETL pipeline in Azure Databricks shown below. Set to run every week, it will **SOMEONE EXPLAIN THE PREPPING IT DOES**.
-
-**_ENTER PHOTO OF AZURE DATABRICKS PIPELINE_**
+The data for this project is web scraped through the python requests package and automated through Azure Workflows. In deployment, this pipeline runs as a scheduled job to continually update our microservice database with the most up to date game information. Below we can see the pipeline as it exists on the Azure portal. 
+![Alt text](images/workflow.png)
+This pipeline takes in raw webscrape data as a json payload which is converted into a raw parquet file format. From there the files are individually cleaned with timestamps reformatted, application of english filters, and added columns to identify the games once they are placed into our database. Finally, we merge these files together and load that into a delta table. The delta lake architecture allows us to perform multiple queries at once on the data through the meta-data layer. This provides our web application a useful degree of scalability
 
 The result of this ETL pipeline will create our Delta Table, called '''final_steam_table''', which will house every single review for every single game. This will also hold the variety of columns with information that the team used to derive analytical insights, as well as what game the review is actually attached too, which is necessary for identification.
 
 ### Analytics Derived
 
-The following below is a brief description of each graph shown, and why.
+Our service takes user selected video games and queries our database in real time to deliver responsive insights to the user. The first visualization that the user sees is an interactive histogram of positive and negative plots (static image shown below). This gives immediate insights to a user for how well a game is performing on Steam's platform and closely mirrors the insights the platform provides as well.
+![Alt text](images/reviewplot.png)
 
-- **Positive vs Negative Reviews**
-- **Playtime at the time of Review Written**
-The following below is a brief description of each graph shown, and why.
 
 #### Text Related Graphs
-We generated two types of graphs based on the text data in the reviews of our video games. The two graphs are clustered using tokenization, TFIDF Vectorization and then MiniBatchKmeans with 3 clusters. This methodolgy is meant to identify like reviews and group them together, so that developers can highlight issues or positive traits about their game in a snapshot. These cluster results were then outputted in two forms: a word map and a bar chart. See the description below. 
-
-- **Review Wordmap:**
+To go beyond the telemetry provided by the Steam Platform, we generated two types of graphs based on the text data in the reviews of our video games. The two graphs are clustered using tokenization, TFIDF Vectorization and then MiniBatchKmeans with 3 clusters. This methodolgy is meant to identify like reviews and group them together, so that developers can highlight issues or positive traits about their game in a snapshot. These cluster results were then outputted in two forms: a word map and a bar chart. See the description below. 
+![Alt text](images/cloud0.png)![Alt text](images/cloud1.png)![Alt text](images/cloud2.png)
 
 The wordmap graphs display the three clusters generated from the clustering scripts. It ouputs the most frequented words talked about within each cluster. The larger the size the more it was talked about. The title at the top is a review which was written by a user that is the most representative of that cluster. Therefore, this is the title of that cluster. It is really interesting to see the different groupings of reviews and how closely they are related to the title.
+![Alt text](images/clustering.png)
 
-- **Review Trigrams Bar Plot:**
 
 This bar plot is a list of the most said 3 word phrases within cluster. We see a lot of more common game problems, economics, or developer problems in these trigrams. Therefore developers can look more into problems and how they should fix them.
 
@@ -81,11 +78,11 @@ The group implemented a GitHub Actions to promote a CI/CD pipeline. The checkpoi
 
 As this application could forsee a future with mutliple users, the group decided to load test. Utilizing ```locust```, the group was able check how many users the application can withstand before failing. Setting a maximum of 1,000 users attempting to utilize the microservice, the results below show how successful the entire project was of withstanding a large amount of incoming traffic. The code displaying the behaviors each of these users did is represented in ```locustfile.py```.
 
-![Alt text](image.png)
+![Alt text](images/image.png)
 
 Along with withstanding a large amount of users, the team felt it would be a success if the average latency per request was anywhere below a minute. This is under the condition that the cluster was already spun, as it takes ~5 minutes for the cluster to initially be created, which severely impacts the latency. The following graph below shows the success.
 
-![Alt text](image-1.png)
+![Alt text](images/image-1.png)
 
 ### How to Run the Project
 
