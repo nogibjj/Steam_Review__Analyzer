@@ -1,18 +1,14 @@
-from azure_sql_connect import get_dataframe
-from app import create_plot, clustering_wordclouds_graphs
-
-
-
-def test_query():
-    the_query = "SELECT * FROM default.final_steam_table WHERE review LIKE '%fun%' LIMIT 1"
-    assert len(get_dataframe(the_query)) > 0
+from app import create_plot, clustering_wordclouds_graphs, clustering_trigrams_graphs
+import pandas as pd
 
 def test_graph1():
-    the_query = "SELECT * FROM default.final_steam_table WHERE game_name = 'Rust'"
-    df = get_dataframe(the_query)
-    assert create_plot(df, "Month", "2016-01-01", "2023-09-12")
+    df = pd.read_parquet("src/data/No_Man's_Sky_clean.parquet")
+    assert create_plot(df, "Month", "2023-01-01", "2023-09-12")
 
 def test_graph2():
-    the_query = "SELECT * FROM default.final_steam_table WHERE review LIKE '%fun%' LIMIT 10"
-    df = get_dataframe(the_query)
+    df = pd.read_parquet("src/data/No_Man's_Sky_clean.parquet")
     assert clustering_wordclouds_graphs(df)
+
+def test_graph3():
+    df = pd.read_parquet("src/data/No_Man's_Sky_clean.parquet")
+    assert clustering_trigrams_graphs(df)
