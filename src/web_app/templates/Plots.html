@@ -1,7 +1,58 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-<h1>The results for {{game}} are shown below<h1>
-<p>Here we have a plot for how many times users up voted a review vs what Steam's weighted score for that review is</p>
-<img src="data:image/png;base64,{{ plot }}">
+<style>
+    body {
+        font-family: Arial, sans-serif; /* Change the font family here */
+        color: #fcffd9; /* Change the text color here */
+    }
+    #plotContainer, #plotContainer1, #plotContainer2 {
+        display: block;
+        width: 100%;
+    }
+
+    .square-plot {
+        width: 30%; /* Adjust the width here */
+        height: 300px; /* Adjust the height here */
+        margin: 5px;
+    }
+</style>
+<div>
+    <body>
+        <div id="plotContainer">
+            {{ plot|safe }}
+            {{ plot1|safe }}
+        </div>
+        
+    <div style="margin-left: 20px;">
+        <h2>The results for {{game}} are shown below</h2>
+        <p>Here we have an interactive plot for game reviews!</p>
+    </div>
+        <div id="plotContainer1">
+            {{ plot2|safe }}
+        </div>
+        <div style="margin-left: 20px;">
+            <h2>The results for {{game}} are shown below</h2>
+            <p>Here we have an interactive plot for game reviews!</p>
+        </div>
+        <div id="plotContainer2">
+            {{ plot3|safe }}
+        </div>
+        <div style="margin-left: 20px;">
+            <h2>The results for {{game}} are shown below</h2>
+            <p>Here we have an interactive plot for game reviews!</p>
+        </div>
+        <div id="plotContainer2">
+            {{ plot4|safe }}
+        </div>
+    </body>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script>
+$(document).ready(function() {
+    // Hide the loading gif
+    $('#loading').hide();
+});
+</script>
 {% endblock %}

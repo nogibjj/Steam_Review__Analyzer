@@ -16,14 +16,14 @@ jobs:
         sudo apt-get install python3.8-dev
     - name: Install dependencies
       run: |
-        make -C data_pipe install
+        make install
     - name: Lint with Ruff
       run: |
-        make -C data_pipe lint
+        make lint
     - name: Test
       run: |
-        make -C data_pipe test
+        make  test
     - name: Format code
       run: |
-        make -C data_pipe format 
+        make format 
         

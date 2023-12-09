@@ -10,11 +10,11 @@ test:
 	python -m pytest -v python/tests
 
 format:	
-	black python 
+	black src 
 	
 
 lint:
-	ruff check $(PYSRC)
+	ruff check src
 
 container-lint:
 	docker run --rm -i hadolint/hadolint < Dockerfile

@@ -2,12 +2,16 @@
 body {
     font-family: 'Open Sans', Arial, sans-serif;
     background-color: #f4f4f4;
+    background-image: url('wallpaperflare.com_wallpaper.jpg'); /* Add this line */
+    background-size: cover; /* Add this line to cover the entire body */
     color: #333;
     line-height: 1.6;
 }
 
 header {
-    background-color: #005f73;
+    position: relative;
+    z-index: 2;
+    background-color: #431414;
     color: #fff;
     padding: 20px 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -43,6 +47,7 @@ h1, h2, h3, h4, h5, h6 {
     padding: 15px;
     margin: 15px 0;
 }
+
 
 footer {
     background-color: #333;
