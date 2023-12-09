@@ -452,9 +452,6 @@ def clustering_trigrams_graphs(df):
 app = Flask(__name__)
 
 
-import pandas as pd
-import plotly.graph_objs as go
-from datetime import datetime
 
 def create_plot(df, grouping_selection, start_date, end_date):
     fig = go.Figure()
