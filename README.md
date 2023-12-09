@@ -1,3 +1,5 @@
+[![Lint Format Test Install](https://github.com/nogibjj/Steam_Review__Analyzer/actions/workflows/CICD.yaml/badge.svg)](https://github.com/nogibjj/Steam_Review__Analyzer/actions/workflows/CICD.yaml)
+
 # Steam Review Analytics Dashboard
 
 ## A dashboard created using DevOps principles to provide various insights based off of reviews left on gaming market place Steam, and some of its biggest games
