@@ -7,7 +7,7 @@ pandas == 2.0.3
 pyspark == 3.5.0
 matplotlib == 3.7.3
 flask == 3.0.0
-tensorflow == 2.15.0
+tensorflow == 2.13.1
 seaborn == 0.13.0
 transformers == 4.35.2
 locust == 2.19.1
