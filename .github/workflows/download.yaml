@@ -1,0 +1,19 @@
+
+name: Install
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v1
+      with:
+        python-version: 3.8
+    - name: Install Python dev package
+      run: |
+        sudo apt-get update
+        sudo apt-get install python3.8-dev
+    - name: Install dependencies
+      run: |
+        make install

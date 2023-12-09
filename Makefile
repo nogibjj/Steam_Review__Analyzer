@@ -7,7 +7,7 @@ install:
 		pip install -r requirements.txt
 
 test:
-	python -m pytest -v src/tests
+	python -m pytest -v src/web_app
 
 format:	
 	black src 
