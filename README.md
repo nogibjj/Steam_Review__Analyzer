@@ -1,6 +1,6 @@
 # Steam Review Analytics Dashboard
 
-## A dashboard created ahering to DevOps principles, created to provide various insights based off of reviews left on gaming market place Steam, and some of its biggest games
+## A dashboard created using DevOps principles to provide various insights based off of reviews left on gaming market place Steam, and some of its biggest games
 
 ### Contributions by: Kian Bagherlee, Yabei Zeng, Katelyn Hucker, John Coogan, and Suim Park
 
@@ -40,7 +40,18 @@ The following below is a brief description of each graph shown, and why.
 
 - **Positive vs Negative Reviews**
 - **Playtime at the time of Review Written**
-- **Review Wordmap**
+The following below is a brief description of each graph shown, and why.
+
+#### Text Related Graphs
+We generated two types of graphs based on the text data in the reviews of our video games. The two graphs are clustered using tokenization, TFIDF Vectorization and then MiniBatchKmeans with 3 clusters. This methodolgy is meant to identify like reviews and group them together, so that developers can highlight issues or positive traits about their game in a snapshot. These cluster results were then outputted in two forms: a word map and a bar chart. See the description below. 
+
+- **Review Wordmap:**
+
+The wordmap graphs display the three clusters generated from the clustering scripts. It ouputs the most frequented words talked about within each cluster. The larger the size the more it was talked about. The title at the top is a review which was written by a user that is the most representative of that cluster. Therefore, this is the title of that cluster. It is really interesting to see the different groupings of reviews and how closely they are related to the title.
+
+- **Review Trigrams Bar Plot:**
+
+This bar plot is a list of the most said 3 word phrases within cluster. We see a lot of more common game problems, economics, or developer problems in these trigrams. Therefore developers can look more into problems and how they should fix them.
 
 ### Dashboard Display
 
