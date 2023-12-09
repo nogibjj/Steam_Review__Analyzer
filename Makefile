@@ -7,7 +7,7 @@ install:
 		pip install -r requirements.txt
 
 test:
-	python -m pytest -v python/tests
+	python -m pytest -v src/tests
 
 format:	
 	black src 
