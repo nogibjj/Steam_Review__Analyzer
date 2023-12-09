@@ -1,12 +1,10 @@
-from datetime import datetime
+import nltk
 from flask import Flask, render_template, request
 import pandas as pd
 import plotly.graph_objects as go
 import plotly.io as pio
 from transformers import pipeline
 import numpy as np
-import pandas as pd
-import nltk
 from nltk import trigrams
 from nltk import bigrams
 from nltk.probability import FreqDist
@@ -14,7 +12,6 @@ from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.cluster import MiniBatchKMeans
-import plotly.graph_objects as go
 from wordcloud import STOPWORDS, WordCloud
 from plotly.subplots import make_subplots
 
@@ -268,8 +265,7 @@ def get_most_representative_reviews(cluster_data):
     return most_representative_reviews
 
 
-from nltk.tokenize import word_tokenize
-from nltk.corpus import stopwords
+
 
 
 def filter_stop_words(review):
