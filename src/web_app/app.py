@@ -14,10 +14,11 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.cluster import MiniBatchKMeans
 from wordcloud import STOPWORDS, WordCloud
 from plotly.subplots import make_subplots
+from azure_sql_connect import get_dataframe
+
 
 nltk.download("stopwords")
 nltk.download("punkt")
-
 
 def dropNAs(df):
     df_clean = df.dropna()
@@ -542,8 +543,20 @@ def home():
         user_grouping = request.form.get("grouping_selection")
         user_start_date = request.form.get("start_date")
         user_end_date = request.form.get("end_date")
+
+        # The following is the query that will be ran to get the dataframe
+        final_query = f"""
+        SELECT * FROM default.final_steam_table 
+        WHERE game_name = "{user_selection}" 
+        AND timestamp_updated > "{user_start_date}" 
+        AND timestamp_updated < "{user_end_date}"
+        """
+
         # Read in the csv file
-        data = pd.read_parquet("../data/No_Man's_Sky_clean.parquet")
+        #data = pd.read_parquet("../data/No_Man's_Sky_clean.parquet")
+
+        data = get_dataframe(final_query)
+
         # Filter the data based on the user's selection
         # df = data[data['game'] == user_selection]
         # make a seaborn plot of votes_up vs weighted_vote_score

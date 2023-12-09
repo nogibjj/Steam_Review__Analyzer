@@ -73,13 +73,13 @@ The group implemented a GitHub Actions to promote a CI/CD pipeline. The gates th
 
 ### Load Testing and Quantitative Assessment
 
-As this application could forsee a future with mutliple users, the group decided to load test. Utilizing ```locust```, the group was able check how many users the application can withstand before failing. Setting a maximum of 2,000 users attempting to utilize the microservice, the results below show how successful the entire project was of withstanding a large amount of incoming traffic. The code displaying the behaviors each of these users did is represented in ```locustfile.py```.
+As this application could forsee a future with mutliple users, the group decided to load test. Utilizing ```locust```, the group was able check how many users the application can withstand before failing. Setting a maximum of 1,000 users attempting to utilize the microservice, the results below show how successful the entire project was of withstanding a large amount of incoming traffic. The code displaying the behaviors each of these users did is represented in ```locustfile.py```.
 
-{HAVE A PHOTO HERE OF LOCUST AFTER WE ARE DONE}
+![Alt text](image.png)
 
 Along with withstanding a large amount of users, the team felt it would be a success if the average latency per request was anywhere below a minute. This is under the condition that the cluster was already spun, as it takes ~5 minutes for the cluster to initially be created, which severely impacts the latency. The following graph below shows the success.
 
-{HAVE A PHOTO HERE OF THE LATENCY GRAPH IN LOCUST}
+![Alt text](image-1.png)
 
 ### How to Run the Project
 
