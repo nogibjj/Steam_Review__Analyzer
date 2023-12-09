@@ -15,8 +15,9 @@ from sklearn.cluster import MiniBatchKMeans
 from wordcloud import STOPWORDS, WordCloud
 from plotly.subplots import make_subplots
 
-nltk.download('stopwords')
-nltk.download('punkt')
+nltk.download("stopwords")
+nltk.download("punkt")
+
 
 def dropNAs(df):
     df_clean = df.dropna()
@@ -265,9 +266,6 @@ def get_most_representative_reviews(cluster_data):
     return most_representative_reviews
 
 
-
-
-
 def filter_stop_words(review):
     stop_words = set(stopwords.words("english"))
     words = word_tokenize(review)
@@ -447,85 +445,97 @@ def clustering_trigrams_graphs(df):
     # Return the generated figure
     return fig
 
+
 app = Flask(__name__)
+
 
 def create_plot(df, grouping_selection, start_date, end_date):
     fig = go.Figure()
-    #convert 'timestamp_created' to integer
-    
-    df['date_time'] = df['timestamp_created']
-    
+    # convert 'timestamp_created' to integer
+
+    df["date_time"] = df["timestamp_created"]
+
     if grouping_selection == "Month":
-        df['year_month'] = df['date_time'].dt.to_period('M')
-        grouped_counts = df.groupby('year_month')['voted_up'].value_counts().unstack()
+        df["year_month"] = df["date_time"].dt.to_period("M")
+        grouped_counts = df.groupby("year_month")["voted_up"].value_counts().unstack()
         grouped_counts = grouped_counts.reset_index()
-        grouped_counts['year_month'] = grouped_counts['year_month'].dt.strftime('%b %Y')
+        grouped_counts["year_month"] = grouped_counts["year_month"].dt.strftime("%b %Y")
 
         positive_counts = grouped_counts[True]
         negative_counts = -grouped_counts[False]
 
-        
+        fig.add_trace(
+            go.Bar(
+                x=grouped_counts["year_month"],
+                y=positive_counts,
+                name="Positive",
+                marker_color="turquoise",
+            )
+        )
 
-        fig.add_trace(go.Bar(
-            x=grouped_counts['year_month'],
-            y=positive_counts,
-            name='Positive',
-            marker_color='turquoise'
-        ))
-
-        fig.add_trace(go.Bar(
-            x=grouped_counts['year_month'],
-            y=negative_counts,
-            name='Negative',
-            marker_color='salmon'
-        ))
+        fig.add_trace(
+            go.Bar(
+                x=grouped_counts["year_month"],
+                y=negative_counts,
+                name="Negative",
+                marker_color="salmon",
+            )
+        )
 
         fig.update_layout(
-            title='Positive and Negative Counts by Month',
-            xaxis_title='Month',
-            yaxis_title='Count',
-            barmode='relative'
+            title="Positive and Negative Counts by Month",
+            xaxis_title="Month",
+            yaxis_title="Count",
+            barmode="relative",
         )
 
     elif grouping_selection == "Day":
-        grouped_counts = df.groupby('date_time')['voted_up'].value_counts().unstack()
+        grouped_counts = df.groupby("date_time")["voted_up"].value_counts().unstack()
         grouped_counts = grouped_counts.reset_index()
 
         positive_counts = grouped_counts[True]
         negative_counts = -grouped_counts[False]
 
+        fig.add_trace(
+            go.Bar(
+                x=grouped_counts["date_time"],
+                y=positive_counts,
+                name="Positive",
+                marker_color="turquoise",
+            )
+        )
 
-        fig.add_trace(go.Bar(
-            x=grouped_counts['date_time'],
-            y=positive_counts,
-            name='Positive',
-            marker_color='turquoise'
-        ))
-
-        fig.add_trace(go.Bar(
-            x=grouped_counts['date_time'],
-            y=negative_counts,
-            name='Negative',
-            marker_color='salmon'
-        ))
+        fig.add_trace(
+            go.Bar(
+                x=grouped_counts["date_time"],
+                y=negative_counts,
+                name="Negative",
+                marker_color="salmon",
+            )
+        )
 
         fig.update_layout(
-            title='Positive and Negative Counts by Day',
-            xaxis_title='Day',
-            yaxis_title='Count',
-            barmode='relative'
+            title="Positive and Negative Counts by Day",
+            xaxis_title="Day",
+            yaxis_title="Count",
+            barmode="relative",
         )
     return fig
-
-
-
 
 
 @app.route("/", methods=["GET", "POST"])
 def home():
     """Take a user selection from a drop down menu and pass the value to Plots.html"""
-    games = ["No Man's Sky", "Phasmaphobia","Rust","Dead By Daylight","Stardew Valley","Fallout 4","Sea of Thieves"]
-    grouping = ["day","month"]
+    games = [
+        "No Man's Sky",
+        "Phasmaphobia",
+        "Rust",
+        "Dead By Daylight",
+        "Stardew Valley",
+        "Fallout 4",
+        "Sea of Thieves",
+    ]
+    grouping = ["day", "month"]
     if request.method == "POST":
         # Get the user's selection from the drop down menu
         user_selection = request.form.get("game")
@@ -544,13 +554,21 @@ def home():
         plot3 = plots[1]
         plot4 = plots[2]
         print(plot4)
-        plot_html = pio.to_html(plot, full_html=False, include_plotlyjs='cdn')
-        plot_html1 = pio.to_html(plot1, full_html=False, include_plotlyjs='cdn')
-        plot_html2 = pio.to_html(plot2, full_html=False, include_plotlyjs='cdn')
-        plot_html3 = pio.to_html(plot3, full_html=False, include_plotlyjs='cdn')
-        plot_html4 = pio.to_html(plot4, full_html=False, include_plotlyjs='cdn')
+        plot_html = pio.to_html(plot, full_html=False, include_plotlyjs="cdn")
+        plot_html1 = pio.to_html(plot1, full_html=False, include_plotlyjs="cdn")
+        plot_html2 = pio.to_html(plot2, full_html=False, include_plotlyjs="cdn")
+        plot_html3 = pio.to_html(plot3, full_html=False, include_plotlyjs="cdn")
+        plot_html4 = pio.to_html(plot4, full_html=False, include_plotlyjs="cdn")
         return render_template(
-            "Plots.html", plot=plot_html,plot1 = plot_html1,plot2 = plot_html2, plot3 = plot_html3,plot4 = plot_html4,grouping = grouping, game=user_selection, title="Game Results"
+            "Plots.html",
+            plot=plot_html,
+            plot1=plot_html1,
+            plot2=plot_html2,
+            plot3=plot_html3,
+            plot4=plot_html4,
+            grouping=grouping,
+            game=user_selection,
+            title="Game Results",
         )
     return render_template("home.html", games=games, title="Home")
 
@@ -578,4 +596,4 @@ def sentiment():
 
 
 if __name__ == "__main__":
-    app.run(debug=True,host='0.0.0.0',port=5000)
+    app.run(debug=True, host="0.0.0.0", port=5000)
