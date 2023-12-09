@@ -1,4 +1,4 @@
-[![Lint Format Test Install](https://github.com/nogibjj/Steam_Review__Analyzer/actions/workflows/CICD.yaml/badge.svg)](https://github.com/nogibjj/Steam_Review__Analyzer/actions/workflows/CICD.yaml)
+[![Format](https://github.com/nogibjj/Steam_Review__Analyzer/actions/workflows/format.yaml/badge.svg)](https://github.com/nogibjj/Steam_Review__Analyzer/actions/workflows/format.yaml) [![Install](https://github.com/nogibjj/Steam_Review__Analyzer/actions/workflows/download.yaml/badge.svg)](https://github.com/nogibjj/Steam_Review__Analyzer/actions/workflows/download.yaml) [![Lint](https://github.com/nogibjj/Steam_Review__Analyzer/actions/workflows/lint.yaml/badge.svg)](https://github.com/nogibjj/Steam_Review__Analyzer/actions/workflows/lint.yaml) [![Test](https://github.com/nogibjj/Steam_Review__Analyzer/actions/workflows/test.yaml/badge.svg)](https://github.com/nogibjj/Steam_Review__Analyzer/actions/workflows/test.yaml)
 ![Alt text](images/Animation.gif)
 # Steam Review Analytics Dashboard
 
