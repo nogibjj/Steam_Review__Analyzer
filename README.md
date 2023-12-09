@@ -41,7 +41,7 @@ Our service takes user selected video games and queries our database in real tim
 
 ### User Playtime Histogram
 Our service provides histograms that show the amount of time users spend playing each game, indirectly revealing their opinions about the games. These graphs are categorized into three types: total playtime up to now, playtime over the last two weeks, and playtime at the point of writing a review. For effective visualization, we have represented the number of users on a log scale. By examining the distribution of users' playtime, we can determine whether a game is consistently popular, just a passing trend, or if it has a loyal user base.
-![User Playtime]()
+![User Playtime](images/user-playtime-plot.png)
 
 #### Text Related Graphs
 To go beyond the telemetry provided by the Steam Platform, we generated two types of graphs based on the text data in the reviews of our video games. The two graphs are clustered using tokenization, TFIDF Vectorization and then MiniBatchKmeans with 3 clusters. This methodolgy is meant to identify like reviews and group them together, so that developers can highlight issues or positive traits about their game in a snapshot. These cluster results were then outputted in two forms: a word map and a bar chart. See the description below. 
