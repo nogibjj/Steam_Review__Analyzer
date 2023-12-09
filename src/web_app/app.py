@@ -14,10 +14,19 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.cluster import MiniBatchKMeans
 from wordcloud import STOPWORDS, WordCloud
 from plotly.subplots import make_subplots
+from azure_sql_connect import get_dataframe
+
 
 nltk.download("stopwords")
 nltk.download("punkt")
 
+actual_query = """
+SELECT * 
+FROM default.final_steam_table 
+WHERE game_name = 'Dead by Daylight'
+AND timestamp_updated > '2023-09-01'
+AND timestamp_updated < '2023-12-08'
+"""
 
 def dropNAs(df):
     df_clean = df.dropna()

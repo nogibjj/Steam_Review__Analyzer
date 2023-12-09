@@ -14,3 +14,4 @@ locust == 2.19.1
 databricks-sql-connector==2.9.3
 nltk == 3.8.1
 wordcloud == 1.9.2
+python-dotenv == 1.0.0

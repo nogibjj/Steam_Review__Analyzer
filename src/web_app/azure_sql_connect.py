@@ -1,6 +1,15 @@
 import requests
 from databricks import sql
 import pandas as pd
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
+databricks_token = os.getenv("databricks_token")
+databricks_http = os.getenv("databricks_http")
+databricks_hostname = os.getenv("databricks_hostname")
+cluster_id = os.getenv("cluster_id")
 
 def start_cluster(cluster_id, databricks_token):
     url = f"https://{databricks_hostname}/api/2.0/clusters/start"
