@@ -15,7 +15,8 @@ from sklearn.cluster import MiniBatchKMeans
 from wordcloud import STOPWORDS, WordCloud
 from plotly.subplots import make_subplots
 from azure_sql_connect import get_dataframe
-
+import plotly.tools as tls
+import matplotlib.pyplot as plt
 
 nltk.download("stopwords")
 nltk.download("punkt")
@@ -457,7 +458,7 @@ def create_plot(df, grouping_selection, start_date, end_date):
     df["date_time"] = df["timestamp_created"]
 
     if grouping_selection == "Month":
-        df["year_month"] = df["date_time"].dt.to_period("M")
+        df["year_month"] = df["date_time"].dt.to_period('M')
         grouped_counts = df.groupby("year_month")["voted_up"].value_counts().unstack()
         grouped_counts = grouped_counts.reset_index()
         grouped_counts["year_month"] = grouped_counts["year_month"].dt.strftime("%b %Y")
@@ -523,6 +524,52 @@ def create_plot(df, grouping_selection, start_date, end_date):
         )
     return fig
 
+def plot_playtime_histogram(game_df,game_name, column_name):
+    """
+    Plot a histogram for a specified playtime column from a given DataFrame.
+
+    Parameters:
+    game_name (str): The name of the game for the plot title.
+    column_name (str): The name of the column to plot (e.g., 'playtime_forever', 'playtime_last_two_weeks', 'playtime_at_review').
+    """
+
+    # Playtime data
+    playtime_data = (game_df[column_name] / 60)  # Convert to hours
+
+    # Plot configuration
+    plt.figure(figsize=(10, 6))
+    plt.hist(playtime_data, bins=50, color="blue", edgecolor="black", log=True)
+
+    # Title and axis labels
+    plt.title(
+        f'{column_name.replace("_", " ").title()} Histogram (Log Scale) on "{game_name}"'
+    )
+    plt.xlabel("Playtime (hours)")
+    plt.ylabel("Frequency (Log Scale)")
+
+    # Statistical information
+    mean_val = np.mean(playtime_data)
+    median_val = playtime_data.median()
+    plt.axvline(
+        mean_val,
+        color="red",
+        linestyle="dashed",
+        linewidth=1,
+        label=f"Mean: {mean_val:.2f}",
+    )
+    plt.axvline(
+        median_val,
+        color="green",
+        linestyle="dashed",
+        linewidth=1,
+        label=f"Median: {median_val:.2f}",
+    )
+
+    # Add legend
+    plt.legend()
+
+    # Show plot
+    return plt 
 
 @app.route("/", methods=["GET", "POST"])
 def home():
@@ -566,12 +613,27 @@ def home():
         plot2 = plots[0]
         plot3 = plots[1]
         plot4 = plots[2]
+        #plt5 = plot_playtime_histogram(data,user_selection, "author_playtime_forever")
+        #plt6 = plot_playtime_histogram(data,user_selection, "author_playtime_last_two_weeks")
+        plt7 = plot_playtime_histogram(data,user_selection, "playtime_at_review")
+
         print(plot4)
         plot_html = pio.to_html(plot, full_html=False, include_plotlyjs="cdn")
         plot_html1 = pio.to_html(plot1, full_html=False, include_plotlyjs="cdn")
         plot_html2 = pio.to_html(plot2, full_html=False, include_plotlyjs="cdn")
         plot_html3 = pio.to_html(plot3, full_html=False, include_plotlyjs="cdn")
         plot_html4 = pio.to_html(plot4, full_html=False, include_plotlyjs="cdn")
+
+        #fig5 = plt5.gcf()
+        #plotly5 = tls.mpl_to_plotly(fig5)
+        #plot_html5 = pio.to_html(plotly5, full_html=False, include_plotlyjs="cdn")
+        #fig6 = plt6.gcf()
+        #plotly6 = tls.mpl_to_plotly(fig6)
+        #plot_html6 = pio.to_html(plotly6, full_html=False, include_plotlyjs="cdn")
+        fig7 = plt7.gcf()
+        plotly7 = tls.mpl_to_plotly(fig7)
+        plot_html7 = pio.to_html(plotly7, full_html=False, include_plotlyjs="cdn")
+
         return render_template(
             "Plots.html",
             plot=plot_html,
@@ -579,6 +641,9 @@ def home():
             plot2=plot_html2,
             plot3=plot_html3,
             plot4=plot_html4,
+            #plot5=plot_html5,
+            #plot6=plot_html6,
+            plot7=plot_html7,
             grouping=grouping,
             game=user_selection,
             title="Game Results",
