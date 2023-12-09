@@ -58,6 +58,10 @@ This project is currently contained on DockerHub, accessible with this link http
 
  The Dockerfile, currently located in ```src/web_app```, is used to make the DockerImage for the entire microservice. From here, the container is pushed to Azure Web App, so that the entire dashboard can be deployed to a public endpoint. With this public endpoint, it becomes easier for anyone to access the dashboard. The utilization of Docker and Azure Web App was paired with the thought of, once the pipeline was established, the entire dashboard becomes easily scaleable.
 
+ The following are Key Metrics from the Azure Web App, to demonstrate that the container was correctly pushed and deployed to a public endpoint.
+
+ ![image](https://github.com/nogibjj/Steam_Review__Analyzer/assets/55768636/ef0bbcce-0c83-4a97-9e1c-6097bc9e37a1)
+
 ### GitHub Actions
 
 The group implemented a GitHub Actions to promote a CI/CD pipeline. The checkpoints that were established was utilizing ```Ruff``` to lint the code, ```Black``` to format the code, a tester to ensure that all packages were properly downloaded from the ```requirements.txt``` file, and ```PyTest``` as our actual code tester. The group did not stop until it was ensured that everything was passed, functioning properly, and looked presentable. This projects GitHub badges are shown above.
