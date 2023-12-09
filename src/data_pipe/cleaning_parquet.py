@@ -1,6 +1,6 @@
 import os
 import pandas as pd
-from langdetect import detect
+from langdetect import detect, lang_detect_exception
 
 
 #input_folder = "ReviewAnalyzer\data\Parquet_Files"
@@ -17,7 +17,7 @@ def load_parquet(file_path):
 def detect_language(text):
     try:
         return detect(text)
-    except:
+    except lang_detect_exception.LangDetectException:
         return None
 
 
