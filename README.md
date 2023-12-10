@@ -1,10 +1,11 @@
 [![Format](https://github.com/nogibjj/Steam_Review__Analyzer/actions/workflows/format.yaml/badge.svg)](https://github.com/nogibjj/Steam_Review__Analyzer/actions/workflows/format.yaml) [![Install](https://github.com/nogibjj/Steam_Review__Analyzer/actions/workflows/download.yaml/badge.svg)](https://github.com/nogibjj/Steam_Review__Analyzer/actions/workflows/download.yaml) [![Lint](https://github.com/nogibjj/Steam_Review__Analyzer/actions/workflows/lint.yaml/badge.svg)](https://github.com/nogibjj/Steam_Review__Analyzer/actions/workflows/lint.yaml) [![Test](https://github.com/nogibjj/Steam_Review__Analyzer/actions/workflows/test.yaml/badge.svg)](https://github.com/nogibjj/Steam_Review__Analyzer/actions/workflows/test.yaml)
 ![Alt text](images/Animation.gif)
 # Steam Review Analytics Dashboard
-
 ## A dashboard created using DevOps principles to provide various insights based off of reviews left on gaming market place Steam, and some of its biggest games
 
 ### Contributions by: Kian Bagherlee, Yabei Zeng, Katelyn Hucker, John Coogan, and Suim Park
+
+Demo Video : https://youtu.be/Knz8Na7rjHg
 
 The following in a comprehensive report that will explain the full Data Engineering project, including its functionality, its limitations, and the tools used. 
 
