@@ -1,5 +1,8 @@
 [![Format](https://github.com/nogibjj/Steam_Review__Analyzer/actions/workflows/format.yaml/badge.svg)](https://github.com/nogibjj/Steam_Review__Analyzer/actions/workflows/format.yaml) [![Install](https://github.com/nogibjj/Steam_Review__Analyzer/actions/workflows/download.yaml/badge.svg)](https://github.com/nogibjj/Steam_Review__Analyzer/actions/workflows/download.yaml) [![Lint](https://github.com/nogibjj/Steam_Review__Analyzer/actions/workflows/lint.yaml/badge.svg)](https://github.com/nogibjj/Steam_Review__Analyzer/actions/workflows/lint.yaml) [![Test](https://github.com/nogibjj/Steam_Review__Analyzer/actions/workflows/test.yaml/badge.svg)](https://github.com/nogibjj/Steam_Review__Analyzer/actions/workflows/test.yaml)
 ![Alt text](images/Animation.gif)
+
+Demo Video: https://www.youtube.com/watch?v=qUW8Or5pbik
+
 # Steam Review Analytics Dashboard
 
 ## A dashboard created using DevOps principles to provide various insights based off of reviews left on gaming market place Steam, and some of its biggest games
